@@ -1,8 +1,8 @@
 import './App.css';
-import Chat from "./containers/Chat/Chat.tsx";
+import Chat from './containers/Chat/Chat.tsx';
 
 const App = () => {
-  return <Chat/>
+  return <Chat />;
 };
 
-export default App
+export default App;

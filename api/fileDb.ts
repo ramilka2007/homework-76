@@ -14,8 +14,13 @@ const fileDb = {
             data = [];
         }
     },
-    async getThirtyMessages() {
-            return data;
+    async getThirtyMessages(array: Messages[]=data) {
+        if (array) {
+            return array.slice(-30);
+        } else {
+            return data.slice(-30);
+        }
+
     },
     async addMessage(msg: MessageWithoutID) {
         const id = crypto.randomUUID();
@@ -24,6 +29,17 @@ const fileDb = {
         data.push(message);
         await this.save();
         return message;
+    },
+    getByQueryDatetime(datetime: Date): Messages[] {
+        let lastMessages: Messages[] = [];
+
+        data.forEach(message => {
+            if (new Date(message.datetime) > datetime) {
+                lastMessages.push(message);
+            }
+        });
+
+        return lastMessages;
     },
     async save() {
         return fs.writeFile(filename, JSON.stringify(data, null, 2));

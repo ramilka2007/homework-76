@@ -32,7 +32,10 @@ messageRouter.get('/', async (req, res) => {
             const date = new Date(queryDate);
             if (isNaN(date.getDate())) {
                 return res.status(400).send({error: 'Datetime is incorrect'});
-            } else {}
+            } else {
+                let messagesByQuery = fileDb.getByQueryDatetime(date);
+                messages = await fileDb.getThirtyMessages(messagesByQuery);
+            }
         } else {
             messages = await fileDb.getThirtyMessages();
         }
