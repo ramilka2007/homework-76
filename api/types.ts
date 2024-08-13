@@ -4,7 +4,7 @@ export interface MessageWithoutID {
 }
 
 export interface Messages {
-    date: string;
+    datetime: string;
     id: string;
     message: string;
     author: string;

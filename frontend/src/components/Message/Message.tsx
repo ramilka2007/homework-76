@@ -12,7 +12,7 @@ interface MessageProps {
 const Message: React.FC<MessageProps> = React.memo(
     ({ info }) => {
         return (
-            <Card sx={{ width: 400 }}>
+            <Card sx={{ width: 400, marginBottom: '20px' }}>
                 <CardContent>
                     <Typography
                         variant="h5"

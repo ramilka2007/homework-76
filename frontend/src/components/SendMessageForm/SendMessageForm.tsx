@@ -4,7 +4,11 @@ import Textarea from '@mui/joy/Textarea';
 import './SendMessageForm.css';
 import { YourMessage } from '../../types';
 
-const SendMessageForm = () => {
+interface Props {
+    sendMessageRequest: (message: YourMessage) => void;
+}
+
+const SendMessageForm: React.FC<Props> = ({sendMessageRequest}) => {
     const [sendMessage, setSendMessage] = React.useState<YourMessage>({
         author: '',
         message: '',
@@ -12,6 +16,8 @@ const SendMessageForm = () => {
 
     const onFormSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+
+        await sendMessageRequest(sendMessage);
 
         setSendMessage({
             author: '',

@@ -14,13 +14,13 @@ const fileDb = {
             data = [];
         }
     },
-    async getThirtyMessages(messagesArray: Messages[]=data) {
-        return messagesArray?.slice(-30);
+    async getThirtyMessages() {
+            return data;
     },
     async addMessage(msg: MessageWithoutID) {
         const id = crypto.randomUUID();
         const date = new Date().toISOString();
-        const message = {id, date, ...msg};
+        const message = {id, datetime: date, ...msg};
         data.push(message);
         await this.save();
         return message;
