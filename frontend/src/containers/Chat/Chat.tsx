@@ -7,6 +7,17 @@ import axiosApi from "../../axiosApi";
 
 const Chat = () => {
     const [messages, setMessages] = React.useState<MessageType[]>([]);
+
+    const getMessages = async () => {
+        const {data: allMessages} = await axiosApi.get('/messages');
+        console.log(allMessages.length);
+        setMessages(allMessages);
+    }
+
+    useEffect(() => {
+        void getMessages();
+    }, []);
+
     const SendMessage = async (message: YourMessage) => {
         if (message.message.trim().length > 0 && message.author.trim().length > 0) {
             try {
