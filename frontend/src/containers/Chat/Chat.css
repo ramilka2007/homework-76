@@ -1,0 +1,13 @@
+.sendForm {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid black;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}

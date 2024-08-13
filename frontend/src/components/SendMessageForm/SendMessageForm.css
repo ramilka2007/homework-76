@@ -1,0 +1,13 @@
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.submitBtn {
+    background: cornflowerblue;
+    padding: 15px 30px;
+    color: white;
+    cursor: pointer;
+}
