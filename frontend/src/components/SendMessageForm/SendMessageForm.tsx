@@ -2,9 +2,7 @@ import React from 'react';
 import { TextField } from '@mui/material';
 import Textarea from '@mui/joy/Textarea';
 import './SendMessageForm.css';
-import { YourMessage } from '../../../types';
-
-const url = 'http://146.185.154.90:8000/messages';
+import { YourMessage } from '../../types';
 
 const SendMessageForm = () => {
     const [sendMessage, setSendMessage] = React.useState<YourMessage>({
@@ -14,16 +12,6 @@ const SendMessageForm = () => {
 
     const onFormSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-
-        const data = new URLSearchParams();
-
-        data.set('message', sendMessage.message);
-        data.set('author', sendMessage.author);
-
-        await fetch(url, {
-            method: 'post',
-            body: data,
-        });
 
         setSendMessage({
             author: '',

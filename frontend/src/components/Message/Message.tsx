@@ -2,7 +2,8 @@ import React from 'react';
 import CardContent from '@mui/material/CardContent';
 import { Typography } from '@mui/material';
 import Card from '@mui/material/Card';
-import { MessageType } from '../../../types';
+import { MessageType } from '../../types';
+import dayjs from "dayjs";
 
 interface MessageProps {
     info: MessageType;
@@ -10,11 +11,6 @@ interface MessageProps {
 
 const Message: React.FC<MessageProps> = React.memo(
     ({ info }) => {
-        const messageDate = (datetime: Date) => {
-            const date = new Date(datetime);
-            return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()},
-            ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-        };
         return (
             <Card sx={{ width: 400 }}>
                 <CardContent>
@@ -26,7 +22,7 @@ const Message: React.FC<MessageProps> = React.memo(
                         {info.author}
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        {messageDate(info.datetime)}
+                        {dayjs(info.datetime).format('MMMM D, YYYY h:mm A')}
                     </Typography>
                     <hr />
                     <h4>
