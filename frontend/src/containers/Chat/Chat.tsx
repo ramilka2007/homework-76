@@ -25,7 +25,6 @@ const Chat = () => {
 
   const fetchNewMessages = async () => {
     try {
-      setLoading(true);
       const lastDate = messages[messages.length - 1].datetime;
       const { data: newMessages } = await axiosApi.get(
         '/messages?datetime=' + lastDate,
@@ -34,14 +33,20 @@ const Chat = () => {
       setMessages((prev) => [...prev.slice(-30), ...newMessages]);
     } catch (e) {
       console.error(e);
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
-    void getMessages();
-  }, []);
+    if (messages.length > 0) {
+      const interval = setInterval(() => {
+        void fetchNewMessages();
+      }, 3000);
+
+      return () => clearInterval(interval);
+    } else {
+      void getMessages();
+    }
+  }, [messages]);
 
   const SendMessage = async (message: YourMessage) => {
     if (message.message !== '' && message.author !== '') {
@@ -49,8 +54,6 @@ const Chat = () => {
         await axiosApi.post('/messages', { ...message });
       } catch (e) {
         console.error(e);
-      } finally {
-        void fetchNewMessages();
       }
     }
   };
@@ -60,12 +63,12 @@ const Chat = () => {
       <Container className="sendForm">
         <SendMessageForm sendMessageRequest={SendMessage} />
       </Container>
-      {messages.length === 0 ? (
-        <h1>No messages</h1>
+      {loading ? (
+        <Spinner/>
       ) : (
         <>
-          {loading ? (
-            <Spinner />
+          {messages.length === 0 ? (
+            <h1>No messages</h1>
           ) : (
             <Container
               className="cards"
