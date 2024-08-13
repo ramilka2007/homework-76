@@ -4,7 +4,7 @@ import { MessageType, YourMessage } from '../../types';
 import Message from '../../components/Message/Message';
 import './Chat.css';
 import axiosApi from '../../axiosApi';
-import { Container } from '@mui/material';
+import {Box, Container} from '@mui/material';
 import Spinner from '../../components/Spinner/Spinner';
 
 const Chat = () => {
@@ -60,9 +60,6 @@ const Chat = () => {
 
   return (
     <>
-      <Container className="sendForm">
-        <SendMessageForm sendMessageRequest={SendMessage} />
-      </Container>
       {loading ? (
         <Spinner/>
       ) : (
@@ -78,16 +75,21 @@ const Chat = () => {
                 alignItems: 'center',
               }}
             >
-              {messages
-                .slice()
-                .reverse()
-                .map((message) => {
-                  return <Message key={message.id} info={message} />;
-                })}
+              <Box component="div" sx={{ overflowX: 'auto' }}>
+                {messages
+                    .slice()
+                    .reverse()
+                    .map((message) => {
+                      return <Message key={message.id} info={message} />;
+                    })}
+              </Box>
             </Container>
           )}
         </>
       )}
+      <Container className="sendForm">
+        <SendMessageForm sendMessageRequest={SendMessage} />
+      </Container>
     </>
   );
 };
